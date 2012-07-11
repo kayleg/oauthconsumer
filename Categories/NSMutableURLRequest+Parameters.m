@@ -40,7 +40,7 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
 		if ([[self HTTPMethod] isEqualToString:@"GET"] || [[self HTTPMethod] isEqualToString:@"DELETE"]) {
 			encodedParameters = [[self URL] query];
 		} else {
-			encodedParameters = [[[NSString alloc] initWithData:[self HTTPBody] encoding:NSASCIIStringEncoding] autorelease];
+			encodedParameters = [[[NSString alloc] initWithData:[self HTTPBody] encoding:NSUTF8StringEncoding] autorelease];
 		}
 	}
     
@@ -81,7 +81,7 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
 }
 
 - (void)setHTTPBodyWithString:(NSString *)body {
-	NSData *bodyData = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+	NSData *bodyData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
 	[self setValue:[NSString stringWithFormat:@"%d", [bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[self setHTTPBody:bodyData];
 }
